@@ -4,7 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.nio.ByteOrder;
 
 /**
  * A simple class that can read in the PCM data from a
@@ -29,9 +28,6 @@ public class WaveDecoder
 	
 	/** sample rate in Herz**/
 	private final float sampleRate;
-	
-	/** the size of the audio data in bytes **/
-	private final int size;
 	
 	/** **/
 	
@@ -79,7 +75,7 @@ public class WaveDecoder
 		if( !in.read4ByteString().equals( "data" ) )
 			throw new RuntimeException( "expected data tag" );
 				
-		size = in.readIntLittleEndian();
+		in.readIntLittleEndian();
 	}
 	
 	/**

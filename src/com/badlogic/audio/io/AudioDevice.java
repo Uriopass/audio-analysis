@@ -1,12 +1,9 @@
 package com.badlogic.audio.io;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.nio.ByteOrder;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Mixer;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.AudioFormat.Encoding;
 

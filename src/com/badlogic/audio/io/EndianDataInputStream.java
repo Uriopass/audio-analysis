@@ -1,7 +1,6 @@
 package com.badlogic.audio.io;
 
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
 public class EndianDataInputStream extends DataInputStream
