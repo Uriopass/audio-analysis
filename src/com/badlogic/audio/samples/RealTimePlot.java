@@ -42,14 +42,16 @@ public class RealTimePlot
 		AudioDevice device = new AudioDevice( );
 		samples = new float[SAMPLE_WINDOW_SIZE];
 		
-		long startTime = System.nanoTime();
+		long startTime = 0;
 		while( decoder.readSamples( samples ) > 0 )
 		{
 			device.writeSamples( samples );
+			if( startTime == 0 )
+				startTime = System.nanoTime();
 			float elapsedTime = (System.nanoTime()-startTime)/1000000000.0f;
 			int position = (int)(elapsedTime * (44100/SAMPLE_WINDOW_SIZE)); 
 			plot.setMarker( position, Color.white );			
-			Thread.sleep(20); // this is needed or else swing has no chance repainting the plot!
+			Thread.sleep(15); // this is needed or else swing has no chance repainting the plot!
 		}
 	}
 	
