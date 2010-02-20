@@ -135,7 +135,26 @@ public class Plot
 				g.dispose();
 				
 				panel.setIcon( new ImageIcon( image ) );
+				frame.invalidate();
 			}
 		});
+	}
+	
+	public void drawLine( final int x1, final int y1, final int x2, final int y2, final Color color )
+	{
+		SwingUtilities.invokeLater( new Runnable() {
+
+			@Override
+			public void run() 
+			{
+				Graphics2D g = image.createGraphics();
+				g.setColor( color );
+				g.drawLine(x1, y1, x2, y2);
+				g.dispose();
+				
+				panel.setIcon( new ImageIcon( image ) );
+				frame.invalidate();
+			}
+		} );
 	}
 }
