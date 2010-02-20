@@ -1,4 +1,4 @@
-package com.badlogic.audio;
+package com.badlogic.audio.io;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -10,7 +10,6 @@ import javax.sound.sampled.Mixer;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.AudioFormat.Encoding;
 
-import com.badlogic.audio.io.WaveDecoder;
 
 /**
  * Class that allows directly passing PCM float mono
