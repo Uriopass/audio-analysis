@@ -656,4 +656,28 @@ public abstract class FourierTransform
     setComplex(freqReal, freqImag);
     inverse(buffer);
   }
+  
+  /**
+   * @return the spectrum of the last FourierTransform.forward() call.
+   */
+  public float[] getSpectrum( )
+  {
+	  return spectrum;
+  }
+  
+  /**
+   * @return the real part of the last FourierTransform.forward() call.
+   */
+  public float[] getRealPart( )
+  {
+	  return real;
+  }
+  
+  /**
+   * @return the imaginary part of the last FourierTransform.forward() call.
+   */
+  public float[] getImaginaryPart( )
+  {
+	  return imag;
+  }
 }
