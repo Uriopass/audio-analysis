@@ -2,13 +2,16 @@ package com.badlogic.audio.visualization;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Panel;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
@@ -31,7 +34,7 @@ public class Plot
 	private JScrollPane scrollPane;
 	
 	/** the image gui component **/
-	private JLabel panel;
+	private JPanel panel;	
 	
 	/** the image **/
 	private BufferedImage image;
@@ -44,6 +47,10 @@ public class Plot
 	
 	/** wheter the plot was cleared, if true we have to recalculate the scaling factor **/
 	private boolean cleared = true;
+	
+	/** current marker position and color **/
+	private int markerPosition = 0;
+	private Color markerColor = Color.white;
 	
 	/**
 	 * Creates a new Plot with the given title and dimensions.
@@ -66,8 +73,30 @@ public class Plot
 				g.setColor( Color.black );
 				g.fillRect( 0, 0, width, height );
 				g.dispose();
-				image = img;
-				panel = new JLabel( new ImageIcon( img ) );
+				image = img;	
+				panel = new JPanel( ) {
+						
+						@Override
+						public void paintComponent( Graphics g )
+						{			
+							super.paintComponent(g);
+							g.drawImage( image, 0, 0, null );
+							g.setColor( markerColor );
+							g.drawLine( markerPosition, 0, markerPosition, image.getHeight() );
+							frame.repaint();
+						}
+						
+						@Override
+						public void update(Graphics g){
+							paint(g);
+						}
+						
+						public Dimension getPreferredSize()
+						{
+							return new Dimension( image.getWidth(), image.getHeight( ) );
+						}
+					};
+				panel.setSize( image.getWidth(), image.getHeight() );
 				scrollPane = new JScrollPane( panel );	
 				frame.getContentPane().add(scrollPane);
 				frame.pack();
@@ -108,6 +137,7 @@ public class Plot
 					g.setColor( Color.black );
 					g.fillRect( 0, 0, image.getWidth(), image.getHeight() ); 
 					g.dispose();
+					panel.setSize( image.getWidth(), image.getHeight( ));
 				}
 					
 				if( cleared )
@@ -132,29 +162,14 @@ public class Plot
 					g.drawLine( (int)((i-1) / samplesPerPixel), image.getHeight() - (int)lastValue, (int)(i / samplesPerPixel), image.getHeight() - (int)value );
 					lastValue = value;
 				}
-				g.dispose();
-				
-				panel.setIcon( new ImageIcon( image ) );
-				frame.invalidate();
+				g.dispose();											
 			}
 		});
 	}
 	
-	public void drawLine( final int x1, final int y1, final int x2, final int y2, final Color color )
+	public void setMarker( int x, Color color )
 	{
-		SwingUtilities.invokeLater( new Runnable() {
-
-			@Override
-			public void run() 
-			{
-				Graphics2D g = image.createGraphics();
-				g.setColor( color );
-				g.drawLine(x1, y1, x2, y2);
-				g.dispose();
-				
-				panel.setIcon( new ImageIcon( image ) );
-				frame.invalidate();
-			}
-		} );
+		this.markerPosition = x;
+		this.markerColor = color;
 	}
 }
