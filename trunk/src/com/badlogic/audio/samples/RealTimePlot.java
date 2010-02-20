@@ -29,13 +29,13 @@ import com.badlogic.audio.visualization.Plot;
 public class RealTimePlot 
 {
 	private static final int SAMPLE_WINDOW_SIZE = 1024;	
-	private static final String FILE = "samples/mozart.mp3";
+	private static final String FILE = "samples/sample.mp3";
 	
 	public static void main( String[] argv ) throws FileNotFoundException, Exception
 	{
 		float[] samples = readInAllSamples( FILE );
 
-		Plot plot = new Plot( "Wave Plot", 512, 512 );
+		Plot plot = new Plot( "Wave Plot", 1024, 512 );
 		plot.plot( samples, SAMPLE_WINDOW_SIZE, Color.red );		
 		
 		MP3Decoder decoder = new MP3Decoder( new FileInputStream( FILE ) );
