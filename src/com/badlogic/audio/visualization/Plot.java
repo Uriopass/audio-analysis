@@ -61,10 +61,10 @@ public class Plot
 				frame = new JFrame( title );
 				frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 				frame.setPreferredSize( new Dimension( width, height ) );
-				BufferedImage img = new BufferedImage( 512, 512, BufferedImage.TYPE_4BYTE_ABGR );
+				BufferedImage img = new BufferedImage( width, height, BufferedImage.TYPE_4BYTE_ABGR );
 				Graphics2D g = (Graphics2D)img.getGraphics();
 				g.setColor( Color.black );
-				g.fillRect( 0, 0, 1024, 1024 );
+				g.fillRect( 0, 0, width, height );
 				g.dispose();
 				image = img;
 				panel = new JLabel( new ImageIcon( img ) );
@@ -92,7 +92,7 @@ public class Plot
 		});
 	}
 	
-	public void plotArray( float[] samples, final float samplesPerPixel, final Color color )
+	public void plot( float[] samples, final float samplesPerPixel, final Color color )
 	{
 		final float[] smps = new float[samples.length];
 		System.arraycopy( samples, 0, smps, 0, samples.length );
@@ -102,7 +102,13 @@ public class Plot
 			public void run() 
 			{
 				if( image.getWidth() <  smps.length / samplesPerPixel )
+				{
 					image = new BufferedImage( (int)(smps.length / samplesPerPixel), frame.getHeight(), BufferedImage.TYPE_4BYTE_ABGR );
+					Graphics2D g = image.createGraphics();
+					g.setColor( Color.black );
+					g.fillRect( 0, 0, image.getWidth(), image.getHeight() ); 
+					g.dispose();
+				}
 					
 				if( cleared )
 				{

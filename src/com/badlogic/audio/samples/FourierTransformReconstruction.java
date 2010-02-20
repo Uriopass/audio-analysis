@@ -25,7 +25,7 @@ public class FourierTransformReconstruction
 		while( decoder.readSamples( samples ) > 0 )
 		{
 			fft.forward( samples );
-//			fft.inverse( samples );
+			fft.inverse( samples );
 			device.writeSamples( samples );
 		}
 	}
