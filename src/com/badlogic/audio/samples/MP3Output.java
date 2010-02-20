@@ -23,7 +23,6 @@ public class MP3Output
 		while( decoder.readSamples( samples ) > 0 )
 		{
 			device.writeSamples( samples );
-//			System.out.println( "samples" );
 		}
 	}
 }
