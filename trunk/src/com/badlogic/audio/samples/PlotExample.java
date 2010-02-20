@@ -33,10 +33,10 @@ public class PlotExample
 		{
 			device.writeSamples( samples );
 			plot.clear();
-			plot.plotArray( samples, 2, Color.red );
+			plot.plot( samples, 2, Color.red );
 			for( int i = 0; i < samples.length; i++ )
 				lowerSamples[i] = samples[i] * 0.5f;
-			plot.plotArray( lowerSamples, 2, Color.green );
+			plot.plot( lowerSamples, 2, Color.green );
 		}
 	}
 }
