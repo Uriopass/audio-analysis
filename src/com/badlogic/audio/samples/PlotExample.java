@@ -3,9 +3,8 @@ package com.badlogic.audio.samples;
 import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
-import com.badlogic.audio.analysis.FFT;
-import com.badlogic.audio.io.AudioDevice;
 import com.badlogic.audio.io.WaveDecoder;
 import com.badlogic.audio.visualization.Plot;
 
@@ -23,20 +22,21 @@ public class PlotExample
 {
 	public static void main( String[] argv ) throws FileNotFoundException, Exception
 	{
-		Plot plot = new Plot( "Sine Plot", 512, 512 );
 		WaveDecoder decoder = new WaveDecoder( new FileInputStream( "samples/sample.wav" ) );
-		AudioDevice device = new AudioDevice( );
-		float samples[] = new float[1024];
-		float lowerSamples[] = new float[1024];
-		
+		ArrayList<Float> allSamples = new ArrayList<Float>( );
+		float[] samples = new float[1024];
+
 		while( decoder.readSamples( samples ) > 0 )
 		{
-			device.writeSamples( samples );
-			plot.clear();
-			plot.plot( samples, 2, Color.red );
 			for( int i = 0; i < samples.length; i++ )
-				lowerSamples[i] = samples[i] * 0.5f;
-			plot.plot( lowerSamples, 2, Color.green );
+				allSamples.add( samples[i] );
 		}
+
+		samples = new float[allSamples.size()];
+		for( int i = 0; i < samples.length; i++ )
+			samples[i] = allSamples.get(i);
+
+		Plot plot = new Plot( "Wave Plot", 512, 512 );
+		plot.plot( samples, 44100 / 100, Color.red );
 	}
 }
