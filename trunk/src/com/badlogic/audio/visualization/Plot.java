@@ -84,6 +84,12 @@ public class Plot
 							g.setColor( markerColor );
 							g.drawLine( markerPosition, 0, markerPosition, image.getHeight() );
 							frame.repaint();
+							try {
+								Thread.sleep( 0 );
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 						
 						@Override

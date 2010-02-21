@@ -1,4 +1,4 @@
-package com.badlogic.audio.samples;
+package com.badlogic.audio.samples.old;
 
 import java.awt.Color;
 import java.io.FileInputStream;
@@ -19,7 +19,7 @@ import com.badlogic.audio.visualization.Plot;
  */
 public class MultiBandSpectralFlux 
 {
-	public static final String FILE = "samples/mozart.mp3";
+	public static final String FILE = "samples/allinall.mp3";
 	
 	public static void main( String[] argv ) throws FileNotFoundException, Exception
 	{

@@ -1,4 +1,4 @@
-package com.badlogic.audio.samples;
+package com.badlogic.audio.samples.old;
 
 import java.awt.Color;
 import java.io.FileInputStream;
@@ -11,14 +11,14 @@ import com.badlogic.audio.io.MP3Decoder;
 import com.badlogic.audio.visualization.Plot;
 
 /**
- * Example exactly the sames a RectifiedSpectralFlux but with
- * hamming windowing enabled (smooths out the waveform before fft).
+ * Exactly like HemmingSpectralFlux only that is uses the 10000Hz to 14000Hz subband
+ * 
  * @author mzechner
  *
  */
-public class HammingSpectralFlux 
+public class BandedSpectralFlux 
 {
-	public static final String FILE = "samples/sample.mp3";
+	public static final String FILE = "samples/allinall.mp3";
 	
 	public static void main( String[] argv ) throws FileNotFoundException, Exception
 	{
@@ -28,13 +28,15 @@ public class HammingSpectralFlux
 		ArrayList<Float> spectralFlux = new ArrayList<Float>( );
 		FFT fft = new FFT( 1024, 44100 );
 		fft.window( FFT.HAMMING );
+		int startFrequency = fft.freqToIndex( 0 );
+		int endFrequency = fft.freqToIndex( 4000 );
 		
 		while( decoder.readSamples( samples ) > 0 )
 		{
 			fft.forward( samples );
 			
 			float sum = 0;
-			for( int i = 0; i < lastSpectrum.length; i++ )
+			for( int i = startFrequency; i < endFrequency; i++ )
 			{
 				float value = (fft.getSpectrum()[i] - lastSpectrum[i] );
 				sum += value < 0?0:value;

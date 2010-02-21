@@ -1,4 +1,4 @@
-package com.badlogic.audio.samples;
+package com.badlogic.audio.samples.old;
 
 import java.awt.Color;
 import java.io.FileInputStream;
@@ -12,7 +12,7 @@ import com.badlogic.audio.visualization.Plot;
 
 public class ThresholdMultiBand 
 {
-	public static final String FILE = "samples/cochise.mp3";
+	public static final String FILE = "samples/explosivo.mp3";
 	
 	public static void main( String[] argv ) throws FileNotFoundException, Exception
 	{
@@ -54,8 +54,8 @@ public class ThresholdMultiBand
 			
 			for( int j = 0; j < spectralFlux[i].size(); j++ )
 			{
-				int start = Math.max( 0, j - 50 );
-				int end = Math.min( spectralFlux[i].size()-1, j + 50 );
+				int start = Math.max( 0, j - 11 );
+				int end = j;
 				
 				float sum = 0;
 				for( int k = start; k <= end; k++ )
@@ -75,8 +75,8 @@ public class ThresholdMultiBand
 			for( int j = 0; j < spectralFlux[i].size(); j++ )
 				spectralFluxArray[j] = (Float)spectralFlux[i].get(j);
 	
-			plot.plot( spectralFluxArray, 1, -0.6f + i, false, Color.red );
-			plot.plot( thresholds[i], 1, -0.6f + i, true, Color.green );
+			plot.plot( spectralFluxArray, 0.5f, -0.6f + i, false, Color.red );
+			plot.plot( thresholds[i], 0.5f, -0.6f + i, true, Color.green );
 		}
 		
 		playBack( plot );
@@ -95,9 +95,9 @@ public class ThresholdMultiBand
 			if( startTime == 0 )
 				startTime = System.nanoTime();
 			float elapsedTime = (System.nanoTime()-startTime)/1000000000.0f;
-			int position = (int)(elapsedTime * (44100/1024)); 
+			int position = (int)(elapsedTime * (44100/512)); 
 			plot.setMarker( position, Color.white );			
-			Thread.sleep(20); // this is needed or else swing has no chance repainting the plot!
+			Thread.sleep(10); // this is needed or else swing has no chance repainting the plot!
 		}
 	}
 }
