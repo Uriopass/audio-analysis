@@ -12,7 +12,7 @@ import com.badlogic.audio.visualization.Plot;
 
 public class ThresholdMultiBand 
 {
-	public static final String FILE = "samples/mozart.mp3";
+	public static final String FILE = "samples/dfourth.mp3";
 	
 	public static void main( String[] argv ) throws FileNotFoundException, Exception
 	{
@@ -54,8 +54,8 @@ public class ThresholdMultiBand
 			
 			for( int j = 0; j < spectralFlux[i].size(); j++ )
 			{
-				int start = Math.max( 0, j - 20 );
-				int end = Math.min( spectralFlux[i].size()-1, j + 20 );
+				int start = Math.max( 0, j - 50 );
+				int end = Math.min( spectralFlux[i].size()-1, j + 50 );
 				
 				float sum = 0;
 				for( int k = start; k <= end; k++ )
