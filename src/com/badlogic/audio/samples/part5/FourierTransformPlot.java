@@ -3,7 +3,6 @@ package com.badlogic.audio.samples.part5;
 import java.awt.Color;
 
 import com.badlogic.audio.analysis.FFT;
-import com.badlogic.audio.io.AudioDevice;
 import com.badlogic.audio.visualization.Plot;
 
 /**
