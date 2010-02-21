@@ -13,7 +13,7 @@ import java.util.List;
 import com.badlogic.audio.analysis.SpectrumProvider;
 import com.badlogic.audio.analysis.ThresholdFunction;
 import com.badlogic.audio.io.MP3Decoder;
-import com.badlogic.audio.io.MP3Decoder2;
+import com.badlogic.audio.io.MP3Decoder;
 import com.badlogic.audio.visualization.PlaybackVisualizer;
 import com.badlogic.audio.visualization.Plot;
 
@@ -27,7 +27,7 @@ public class MultiBandThreshold
 	
 	public static void main( String[] argv ) throws Exception
 	{		
-		MP3Decoder2 decoder = new MP3Decoder2( new FileInputStream( FILE  ) );
+		MP3Decoder decoder = new MP3Decoder( new FileInputStream( FILE  ) );
 		SpectrumProvider spectrumProvider = new SpectrumProvider( decoder, 1024, HOP_SIZE, true );			
 		float[] spectrum = spectrumProvider.nextSpectrum();
 		float[] lastSpectrum = new float[spectrum.length];		
@@ -69,6 +69,6 @@ public class MultiBandThreshold
 			plot.plot( thresholds.get(i), 1, -0.6f * (bands.length / 2 - 2) + i, true, Color.green );
 		}
 		
-		new PlaybackVisualizer( plot, HOP_SIZE, new MP3Decoder2( new FileInputStream( FILE ) ) );
+		new PlaybackVisualizer( plot, HOP_SIZE, new MP3Decoder( new FileInputStream( FILE ) ) );
 	}
 }

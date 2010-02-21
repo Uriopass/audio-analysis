@@ -30,13 +30,13 @@ import org.tritonus.share.sampled.file.TAudioFileReader;
  * @author mzechner
  *
  */
-public class MP3Decoder2 implements Decoder
+public class MP3Decoder implements Decoder
 {				
 	AudioInputStream in;
 	FloatSampleBuffer buffer;
 	byte[] bytes;
 	
-	public MP3Decoder2( InputStream stream ) throws Exception
+	public MP3Decoder( InputStream stream ) throws Exception
 	{
 		InputStream in = new BufferedInputStream( stream, 1024*1024 );
 		this.in = new MP3AudioFileReader( ).getAudioInputStream( in );
