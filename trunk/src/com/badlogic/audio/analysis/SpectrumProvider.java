@@ -25,16 +25,10 @@ public class SpectrumProvider
 	private float[] tempSamples; 
 	
 	/** the current sample, always modulo sample window size **/
-	private int currentSample = 0;
-	
-	/** wheter we are done **/
-	private boolean done = false;
+	private int currentSample = 0;	
 	
 	/** the hop size **/
 	private final int hopSize;
-	
-	/** wheter to use hamming smoothing or not **/
-	private final boolean useHamming;
 	
 	/** the fft **/
 	private final FFT fft;	
@@ -69,8 +63,7 @@ public class SpectrumProvider
 		this.samples = new float[sampleWindowSize];
 		this.nextSamples = new float[sampleWindowSize];
 		this.tempSamples = new float[sampleWindowSize];
-		this.hopSize = hopSize;
-		this.useHamming = useHamming;		
+		this.hopSize = hopSize;			
 		fft = new FFT( sampleWindowSize, 44100 );
 		if( useHamming )
 			fft.window(FFT.HAMMING);
