@@ -68,8 +68,8 @@ public class Plot
 				public void run() 
 				{
 					frame = new JFrame( title );
-					frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
-					frame.setPreferredSize( new Dimension( width, height ) );
+					frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );					
+					frame.setPreferredSize( new Dimension( width + frame.getInsets().left + frame.getInsets().right, frame.getInsets().top + frame.getInsets().bottom + height ) );
 					BufferedImage img = new BufferedImage( width, height, BufferedImage.TYPE_4BYTE_ABGR );
 					Graphics2D g = (Graphics2D)img.getGraphics();
 					g.setColor( Color.black );
@@ -105,7 +105,7 @@ public class Plot
 								return new Dimension( image.getWidth(), image.getHeight( ) );
 							}
 						};
-					panel.setSize( image.getWidth(), image.getHeight() );
+//					panel.setPreferredSize( new Dimension( width, height ) );
 					scrollPane = new JScrollPane( panel );	
 					frame.getContentPane().add(scrollPane);
 					frame.pack();
