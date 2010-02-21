@@ -17,7 +17,7 @@ import com.badlogic.audio.visualization.Plot;
  */
 public class Beats 
 {
-	public static final String FILE = "samples/explosivo.mp3";
+	public static final String FILE = "samples/allinall.mp3";
 	
 	public static void main( String[] argv ) throws FileNotFoundException, Exception
 	{
@@ -68,7 +68,7 @@ public class Beats
 					sum += (Float)spectralFlux[i].get(k);
 				}
 				sum /= (end-start);
-				sum *= 2f;
+				sum *= (1.5 + i);
 				thresholds[i][j] = sum;
 			}
 		}
@@ -105,7 +105,7 @@ public class Beats
 			float elapsedTime = (System.nanoTime()-startTime)/1000000000.0f;
 			int position = (int)(elapsedTime * (44100/1024*2)); 
 			plot.setMarker( position, Color.white );			
-			Thread.sleep(20); // this is needed or else swing has no chance repainting the plot!
+			Thread.sleep(10); // this is needed or else swing has no chance repainting the plot!
 		}
 	}
 }
