@@ -15,7 +15,7 @@ import java.io.InputStream;
  * @author mzechner
  *
  */
-public class WaveDecoder 
+public class WaveDecoder implements com.badlogic.audio.io.Decoder
 {
 	/** inverse max short value as float **/
 	private final float MAX_VALUE = 1.0f / Short.MAX_VALUE;
