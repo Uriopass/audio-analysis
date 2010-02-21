@@ -13,11 +13,11 @@ import com.badlogic.audio.visualization.Plot;
 
 public class MultiBandThreshold 
 {
-	public static final String FILE = "cloudconnected.mp3";
+	public static final String FILE = "samples/hitme.mp3";
 	public static final int HOP_SIZE = 512;
 	public static final int HISTORY_SIZE = 50;
-	public static final float[] multipliers = { 2.5f, 2, 2f };
-	public static final float[] bands = { 0, 4000, 4000, 10000, 10000, 14000 };
+	public static final float[] multipliers = { 2f, 2f, 2f };
+	public static final float[] bands = { 0, 4000, 4000, 10000, 12000, 14000 };
 	
 	public static void main( String[] argv ) throws Exception
 	{		
