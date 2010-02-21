@@ -167,6 +167,51 @@ public class Plot
 		});
 	}
 	
+	public void plot( float[] samples, final float samplesPerPixel, final float offset, final boolean useLastScale, final Color color )
+	{
+		final float[] smps = new float[samples.length];
+		System.arraycopy( samples, 0, smps, 0, samples.length );
+		SwingUtilities.invokeLater( new Runnable( ) 
+		{
+			@Override
+			public void run() 
+			{
+				if( image.getWidth() <  smps.length / samplesPerPixel )
+				{
+					image = new BufferedImage( (int)(smps.length / samplesPerPixel), frame.getHeight(), BufferedImage.TYPE_4BYTE_ABGR );
+					Graphics2D g = image.createGraphics();
+					g.setColor( Color.black );
+					g.fillRect( 0, 0, image.getWidth(), image.getHeight() ); 
+					g.dispose();
+					panel.setSize( image.getWidth(), image.getHeight( ));
+				}
+					
+				if( !useLastScale )
+				{
+					float min = 0;
+					float max = 0;
+					for( int i = 0; i < smps.length; i++ )
+					{
+						min = Math.min( smps[i], min );
+						max = Math.max( smps[i], max );
+					}
+					scalingFactor = max - min;
+				}
+								
+				Graphics2D g = image.createGraphics();
+				g.setColor( color );
+				float lastValue = (smps[0] / scalingFactor) * image.getHeight() / 3 + image.getHeight() / 2 - offset * image.getHeight() / 3;
+				for( int i = 1; i < smps.length; i++ )
+				{
+					float value = (smps[i] / scalingFactor) * image.getHeight() / 3 + image.getHeight() / 2 - offset * image.getHeight() / 3;
+					g.drawLine( (int)((i-1) / samplesPerPixel), image.getHeight() - (int)lastValue, (int)(i / samplesPerPixel), image.getHeight() - (int)value );
+					lastValue = value;
+				}
+				g.dispose();											
+			}
+		});
+	}
+	
 	public void setMarker( int x, Color color )
 	{
 		this.markerPosition = x;
