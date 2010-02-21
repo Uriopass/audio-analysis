@@ -12,14 +12,14 @@ import com.badlogic.audio.visualization.Plot;
 
 public class ThresholdMultiBand 
 {
-	public static final String FILE = "samples/dfourth.mp3";
+	public static final String FILE = "samples/cochise.mp3";
 	
 	public static void main( String[] argv ) throws FileNotFoundException, Exception
 	{
 		MP3Decoder decoder = new MP3Decoder( new FileInputStream( FILE ) );
 		float samples[] = new float[1024];
 		float lastSpectrum[] = new float[513];
-		int[] bands = { 0, 4000, 8000, 16000 };
+		int[] bands = { 0, 4000, 8000, 14000 };
 		ArrayList[] spectralFlux = new ArrayList[bands.length-1];
 		float[][] thresholds = new float[bands.length-1][];
 		for( int i = 0; i < spectralFlux.length; i++ )
@@ -97,7 +97,7 @@ public class ThresholdMultiBand
 			float elapsedTime = (System.nanoTime()-startTime)/1000000000.0f;
 			int position = (int)(elapsedTime * (44100/1024)); 
 			plot.setMarker( position, Color.white );			
-			Thread.sleep(15); // this is needed or else swing has no chance repainting the plot!
+			Thread.sleep(20); // this is needed or else swing has no chance repainting the plot!
 		}
 	}
 }
