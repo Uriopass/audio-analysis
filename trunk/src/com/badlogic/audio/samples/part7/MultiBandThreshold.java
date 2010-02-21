@@ -1,18 +1,12 @@
 package com.badlogic.audio.samples.part7;
 
 import java.awt.Color;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.audio.analysis.SpectrumProvider;
 import com.badlogic.audio.analysis.ThresholdFunction;
-import com.badlogic.audio.io.MP3Decoder;
 import com.badlogic.audio.io.MP3Decoder;
 import com.badlogic.audio.visualization.PlaybackVisualizer;
 import com.badlogic.audio.visualization.Plot;
