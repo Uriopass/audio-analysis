@@ -1,4 +1,4 @@
-package com.badlogic.audio.samples;
+package com.badlogic.audio.samples.part3;
 
 import java.awt.Color;
 import java.io.FileInputStream;

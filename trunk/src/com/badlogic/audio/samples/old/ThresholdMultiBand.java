@@ -97,7 +97,7 @@ public class ThresholdMultiBand
 			float elapsedTime = (System.nanoTime()-startTime)/1000000000.0f;
 			int position = (int)(elapsedTime * (44100/512)); 
 			plot.setMarker( position, Color.white );			
-			Thread.sleep(10); // this is needed or else swing has no chance repainting the plot!
+			Thread.sleep( 20 ); // this is needed or else swing has no chance repainting the plot!
 		}
 	}
 }

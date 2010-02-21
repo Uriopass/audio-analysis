@@ -1,4 +1,4 @@
-package com.badlogic.audio.samples;
+package com.badlogic.audio.samples.part2;
 
 import java.io.FileInputStream;
 
