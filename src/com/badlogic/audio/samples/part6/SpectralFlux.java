@@ -3,8 +3,9 @@ package com.badlogic.audio.samples.part6;
 import java.awt.Color;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.List;
 
-import com.badlogic.audio.analysis.SpectrumProvider;
+import com.badlogic.audio.analysis.FFT;
 import com.badlogic.audio.io.MP3Decoder;
 import com.badlogic.audio.visualization.PlaybackVisualizer;
 import com.badlogic.audio.visualization.Plot;
@@ -18,32 +19,32 @@ import com.badlogic.audio.visualization.Plot;
  */
 public class SpectralFlux 
 {
-	public static final String FILE = "samples/cochise.mp3";
-	public static final int HOP_SIZE = 1024;
+	public static final String FILE = "samples/judith.mp3";	
 	
 	public static void main( String[] argv ) throws Exception
 	{
-		MP3Decoder decoder = new MP3Decoder( new FileInputStream( FILE  ) );
-		SpectrumProvider spectrumProvider = new SpectrumProvider( decoder, 1024, HOP_SIZE, false );			
-		float[] spectrum = spectrumProvider.nextSpectrum();
-		float[] lastSpectrum = new float[spectrum.length];
-		ArrayList<Float> spectralFlux = new ArrayList<Float>( );
+		MP3Decoder decoder = new MP3Decoder( new FileInputStream( FILE  ) );							
+		FFT fft = new FFT( 1024, 44100 );
+		float[] samples = new float[1024];
+		float[] spectrum = new float[1024 / 2 + 1];
+		float[] lastSpectrum = new float[1024 / 2 + 1];
+		List<Float> spectralFlux = new ArrayList<Float>( );
 		
-		do
-		{
+		while( decoder.readSamples( samples ) > 0 )
+		{			
+			fft.forward( samples );
+			System.arraycopy( spectrum, 0, lastSpectrum, 0, spectrum.length ); 
+			System.arraycopy( fft.getSpectrum(), 0, spectrum, 0, spectrum.length );
+			
 			float flux = 0;
 			for( int i = 0; i < spectrum.length; i++ )			
 				flux += (spectrum[i] - lastSpectrum[i]);			
-			spectralFlux.add( flux );
-			
-			System.arraycopy( spectrum, 0, lastSpectrum, 0, spectrum.length );
-		}
-		while( (spectrum = spectrumProvider.nextSpectrum() ) != null );
+			spectralFlux.add( flux );					
+		}		
 		
 		
 		Plot plot = new Plot( "Spectral Flux", 1024, 512 );
-		plot.plot( spectralFlux, 1, Color.red );
-		
-		new PlaybackVisualizer( plot, HOP_SIZE, new MP3Decoder( new FileInputStream( FILE ) ) );
+		plot.plot( spectralFlux, 1, Color.red );		
+		new PlaybackVisualizer( plot, 1024, new MP3Decoder( new FileInputStream( FILE ) ) );
 	}
 }
