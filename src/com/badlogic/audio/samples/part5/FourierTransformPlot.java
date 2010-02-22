@@ -16,20 +16,16 @@ public class FourierTransformPlot
 {
 	public static void main( String[] argv )
 	{
-		final float frequencyA = 440; // Note A
-		final float frequencyAOctave = 880; // Note A in the next octave
-		float incrementA = (float)(2*Math.PI) * frequencyA / 44100;
-		float incrementAOctave = (float)(2*Math.PI)*frequencyAOctave / 44100;
-		float angleA = 0;
-		float angleAOctave = 0;
+		final float frequency = 440; // Note A		
+		float increment = (float)(2*Math.PI) * frequency / 44100;		
+		float angle = 0;		
 		float samples[] = new float[1024];
 		FFT fft = new FFT( 1024, 44100 );
 		
 		for( int i = 0; i < samples.length; i++ )
 		{
-			samples[i] = ((float)Math.sin( angleA ) + (float)Math.sin( angleAOctave) ) / 2;
-			angleA += incrementA;
-			angleAOctave += incrementAOctave;
+			samples[i] = (float)Math.sin( angle );
+			angle += increment;		
 		}
 		
 		fft.forward( samples );
