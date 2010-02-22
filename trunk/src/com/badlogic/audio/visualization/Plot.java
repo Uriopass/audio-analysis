@@ -68,7 +68,7 @@ public class Plot
 				public void run() 
 				{
 					frame = new JFrame( title );
-					frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );					
+					frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );					
 					frame.setPreferredSize( new Dimension( width + frame.getInsets().left + frame.getInsets().right, frame.getInsets().top + frame.getInsets().bottom + height ) );
 					BufferedImage img = new BufferedImage( width, height, BufferedImage.TYPE_4BYTE_ABGR );
 					Graphics2D g = (Graphics2D)img.getGraphics();

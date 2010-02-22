@@ -6,26 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.audio.analysis.FFT;
-import com.badlogic.audio.analysis.SpectrumProvider;
 import com.badlogic.audio.io.MP3Decoder;
 import com.badlogic.audio.visualization.PlaybackVisualizer;
 import com.badlogic.audio.visualization.Plot;
 
-/**
- * Calculates the spectral flux of a song and displays the
- * resulting plot.
- * 
- * @author mzechner
- *
- */
-public class RectifiedSpectralFlux 
+public class HammingSpectralFlux 
 {
-	public static final String FILE = "samples/judith.mp3";	
+public static final String FILE = "samples/judith.mp3";	
 	
 	public static void main( String[] argv ) throws Exception
 	{
 		MP3Decoder decoder = new MP3Decoder( new FileInputStream( FILE  ) );							
 		FFT fft = new FFT( 1024, 44100 );
+		fft.window( FFT.HAMMING );
 		float[] samples = new float[1024];
 		float[] spectrum = new float[1024 / 2 + 1];
 		float[] lastSpectrum = new float[1024 / 2 + 1];

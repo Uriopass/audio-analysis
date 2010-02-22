@@ -13,17 +13,15 @@ import com.badlogic.audio.visualization.Plot;
 
 /**
  * Demonstrates the calculation of the spectral flux function
- * as well as the threshold function and displays the result.
+ * hopping fractions of the original 1024 sample window.
  * 
  * @author mzechner
  *
  */
-public class SpectralFluxThreshold 
+public class HoppingSpectralFlux 
 {
-	public static final String FILE = "samples/dfourth.mp3";
-	public static final int HOP_SIZE = 512;
-	public static final int HISTORY_SIZE = 20;
-	public static final float MULTIPLIER = 1.6f;
+	public static final String FILE = "samples/judith.mp3";
+	public static final int HOP_SIZE = 512;	
 	
 	public static void main( String[] argv ) throws Exception
 	{
@@ -45,13 +43,10 @@ public class SpectralFluxThreshold
 			
 			System.arraycopy( spectrum, 0, lastSpectrum, 0, spectrum.length );
 		}
-		while( (spectrum = spectrumProvider.nextSpectrum() ) != null );
-		
-		List<Float> threshold = new ThresholdFunction( HISTORY_SIZE, MULTIPLIER ).calculate( spectralFlux );
+		while( (spectrum = spectrumProvider.nextSpectrum() ) != null );			
 		
 		Plot plot = new Plot( "Spectral Flux", 1024, 512 );
-		plot.plot( spectralFlux, 1, Color.red );
-		plot.plot( threshold, 1, Color.green );
+		plot.plot( spectralFlux, 1, Color.red );		
 		
 		new PlaybackVisualizer( plot, HOP_SIZE, new MP3Decoder( new FileInputStream( FILE ) ) );
 	}
